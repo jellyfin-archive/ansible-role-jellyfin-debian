@@ -1,0 +1,16 @@
+---
+- name: Restart Jellyfin
+  systemd:
+    name: jellyfin
+    state: restarted
+
+- name: Restart nginx
+  systemd:
+    name: nginx
+    state: restarted
+
+- name: Restart apache2
+  systemd:
+    name: apache2
+    state: restarted
+...

@@ -1,0 +1,19 @@
+---
+- name: Pre-tasks
+  include_tasks: pre_tasks/main.yml
+
+- name: Install Jellyfin
+  include_tasks: install.yml
+
+- name: Generate SSL certificate using autocert bot
+  include_tasks: certbot.yml
+  when: jellyfin_certificate_via_letsencrypt_certbot
+
+- name: Configure {{ jellyfin_HTTP_server }}
+  include_tasks: HTTP_server.yml
+
+- name: Configure Jellyfin
+  include_tasks: configure.yml
+  tags:
+    - jellyfinsysconfig
+...

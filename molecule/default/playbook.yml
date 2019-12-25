@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - hadrienpatte.jellyfin
+  vars:
+    jellyfin_FQDN: www.example.com
+...

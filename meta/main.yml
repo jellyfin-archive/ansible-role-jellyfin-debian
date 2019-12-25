@@ -1,0 +1,27 @@
+---
+galaxy_info:
+  role_name: jellyfin
+  author: TiedToAStar
+  company: ""
+  description: Install Jellyfin on Debian.
+  license: MIT
+  min_ansible_version: 2.4
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+        - buster
+    - name: Ubuntu
+      versions:
+        - bionic
+        - cosmic
+        - disco
+        - eoan
+  galaxy_tags:
+    - jellyfin
+    - media
+
+dependencies:
+  - geerlingguy.certbot
+  - tiedtoastar.openldap
+...
