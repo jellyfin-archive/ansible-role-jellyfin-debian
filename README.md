@@ -36,7 +36,7 @@ None.
   hosts: all
   become: true
   roles:
-    - role: tiedtoastar.openldap-debian
+    - role: tiedtoastar.openldap
       openldap_is_setup: false
       openldap_FQDN: www.example.com
       openldap_domain: dc=example,dc=com
@@ -72,7 +72,7 @@ None.
           cn: jellyfinadmin
           sn: jellyfinadmin
           description: account used to administrate the jellyfin web application
-    - role: tiedtoastar.jellyfin-debian
+    - role: tiedtoastar.jellyfin
       jellyfin_FQDN: "{{ openldap_FQDN }}"
       jellyfin_plugins:
         ldap:
