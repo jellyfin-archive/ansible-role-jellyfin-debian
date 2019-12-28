@@ -1,4 +1,20 @@
 ---
+
+# pip is needed to install python modules i.e. lxml
+- name: Install Pip
+  apt:
+    name:
+      - python-pip
+    state: present
+  register: apt_result
+  retries: 3
+  until: apt_result is succeeded
+
+# lxml is needed to modify the jellyfin system.xml
+- name: Install lxml python module
+  pip:
+    name: lxml
+
 - name: Install apt-transport-https
   apt:
     name: apt-transport-https

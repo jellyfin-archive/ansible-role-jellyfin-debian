@@ -1,6 +1,4 @@
 ---
-- name: Pre-tasks
-  include_tasks: pre_tasks/main.yml
 
 - name: Install Jellyfin
   include_tasks: install.yml
