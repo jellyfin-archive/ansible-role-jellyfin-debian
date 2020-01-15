@@ -57,16 +57,16 @@
       jellyfin_FQDN: www.example.com
       jellyfin_plugins:
         ldap:
-          ldapbasedn: ou=people,{{ pwm_ldap_domain }}
+          ldapbasedn: ou=people,{{ openldap_domain }}
           ldapsearchfilter: (accountstanding=good)
-          ldapadminfilter: (memberOf=cn=jellyfinwebadmins,ou=groups,{{ pwm_ldap_domain }})
-          ldapbinduser: cn=jellyfin-ldap-service,ou=machineaccounts,{{ pwm_ldap_domain }}
+          ldapadminfilter: (memberOf=cn=jellyfinwebadmins,ou=groups,{{ openldap_domain }})
+          ldapbinduser: cn=jellyfin-ldap-service,ou=machineaccounts,{{ openldap_domain }}
           ldapbindpassword: ChangeMeJly
     - role: tiedtoastar.pwm
       pwm_ldap_domain: dc=example,dc=com
       pwm_site_config: /etc/nginx/sites-available/jellyfin.conf
       pwm_newuser_redirecturl: https://www.example.com
       pwm_site_url: https://www.example.com/pwm
-      pwm_securitykey: ChangeMePwmKey
+      pwm_securitykey: ChangeMePwmKeyChangeMePwmKeyChangeMePwmKey
       pwm_config_pwd: SecurelyChangeMe
       pwm_ldap_bind_pwd: ChangeMePwm
