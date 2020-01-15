@@ -3,8 +3,8 @@
   <LdapServer>{{ jellyfin_plugins.ldap.ldapserver | default('127.0.0.1') }}</LdapServer>
   <LdapBaseDn>{{ jellyfin_plugins.ldap.ldapbasedn }}</LdapBaseDn>
   <LdapPort>{{ jellyfin_plugins.ldap.ldapport | default('389') }}</LdapPort>
-  <LdapSearchAttributes>{{ jellyfin_plugins.ldap.ldapsearchattributes | default('uid') }}</LdapSearchAttributes>
-  <LdapUsernameAttribute>{{ jellyfin_plugins.ldap.ldapusernameattribute | default('uid') }}</LdapUsernameAttribute>
+  <LdapSearchAttributes>{{ jellyfin_plugins.ldap.ldapsearchattributes | default('sn') }}</LdapSearchAttributes>
+  <LdapUsernameAttribute>{{ jellyfin_plugins.ldap.ldapusernameattribute | default('sn') }}</LdapUsernameAttribute>
   <LdapSearchFilter>{{ jellyfin_plugins.ldap.ldapsearchfilter }}</LdapSearchFilter>
   <LdapAdminFilter>{{ jellyfin_plugins.ldap.ldapadminfilter }}</LdapAdminFilter>
   <LdapBindUser>{{ jellyfin_plugins.ldap.ldapbinduser }}</LdapBindUser>
