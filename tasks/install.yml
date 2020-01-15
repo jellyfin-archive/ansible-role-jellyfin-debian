@@ -38,6 +38,12 @@
       {{ ansible_distribution_release }} main
     state: present
 
+- name: Ensure apache is gone if we're installing nginx, sometimes your VPS will have it installed by default
+  apt:
+    name: apache2
+    state: absent
+  when: jellyfin_HTTP_server == 'nginx'
+
 - name: Install Jellyfin and {{ jellyfin_HTTP_server }}
   apt:
     update_cache: true
