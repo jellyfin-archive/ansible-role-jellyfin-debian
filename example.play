@@ -1,0 +1,72 @@
+- name: Install Jellyfin & ldap & pwm
+  hosts: all
+  become: true
+  roles:
+    - role: tiedtoastar.openldap
+      openldap_is_setup: false
+      openldap_FQDN: example.com
+      openldap_domain: dc=example,dc=com
+      openldap_dc: example
+      openldap_o: example com
+      openldap_rootpw: ChangeMeLdap
+      openldap_user: ansible
+      openldap_group: ansible
+      openldap_groups:
+      - jellyfinwebadmins:
+        attributes:
+          description: admins that manage the jellyfin web
+          member: cn=jellyfinadmin,ou=people,{{ openldap_domain }}
+      - pwmwebadmins:
+        attributes:
+          description: admins that manage the pwm web
+          member: cn=pwmadmin,ou=people,{{ openldap_domain }}
+      openldap_users:
+      - dn: cn=jellyfin-ldap-service,ou=machineaccounts,{{ openldap_domain }}
+        objectClass:
+        - inetOrgPerson
+        userPassword: ChangeMeJly
+        attributes:
+          cn: jellyfin-ldap-service
+          sn: jellyfin-ldap-service
+          description: accounts used to connect jellyfin and the ldap for user authentication
+      - dn: cn=pwm-ldap-service,ou=machineaccounts,{{ openldap_domain }}
+        objectClass:
+        - inetOrgPerson
+        userPassword: ChangeMePwm
+        attributes:
+          cn: pwm-ldap-service
+          sn: pwm-ldap-service
+          description: account used to connect pwm and the ldap for password management
+      - dn: cn=jellyfinadmin,ou=people,{{ openldap_domain }}
+        objectClass:
+        - inetOrgPerson
+        userPassword: ChangeMeJlyAdmin
+        attributes:
+          cn: jellyfinadmin
+          sn: jellyfinadmin
+          description: account used to administrate the jellyfin web application
+      - dn: cn=pwmadmin,ou=people,{{ openldap_domain }}
+        objectClass:
+        - inetOrgPerson
+        userPassword: ChangeMePwmAdmin
+        attributes:
+          cn: pwmadmin
+          sn: pwmadmin
+          description: account used to administrate the pwm web application
+    - role: tiedtoastar.jellyfin
+      jellyfin_FQDN: www.example.com
+      jellyfin_plugins:
+        ldap:
+          ldapbasedn: ou=people,{{ pwm_ldap_domain }}
+          ldapsearchfilter: (accountstanding=good)
+          ldapadminfilter: (memberOf=cn=jellyfinwebadmins,ou=groups,{{ pwm_ldap_domain }})
+          ldapbinduser: cn=jellyfin-ldap-service,ou=machineaccounts,{{ pwm_ldap_domain }}
+          ldapbindpassword: ChangeMeJly
+    - role: tiedtoastar.pwm
+      pwm_ldap_domain: dc=example,dc=com
+      pwm_site_config: /etc/nginx/sites-available/jellyfin.conf
+      pwm_newuser_redirecturl: https://www.example.com
+      pwm_site_url: https://www.example.com/pwm
+      pwm_securitykey: ChangeMePwmKey
+      pwm_config_pwd: SecurelyChangeMe
+      pwm_ldap_bind_pwd: ChangeMePwm
