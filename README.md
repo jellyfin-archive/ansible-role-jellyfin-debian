@@ -4,6 +4,8 @@
 
 An Ansible Role that installs [Jellyfin](https://github.com/jellyfin/jellyfin) on Debian and Ubuntu.
 
+<iframe src="https://giphy.com/embed/L3o1VDj2ic7DnDTvII" width="480" height="277" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/L3o1VDj2ic7DnDTvII">via GIPHY</a></p>
+
 ## Requirements
 
 None.
