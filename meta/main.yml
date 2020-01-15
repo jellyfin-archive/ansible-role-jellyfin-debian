@@ -22,6 +22,4 @@ galaxy_info:
     - media
 
 dependencies:
-  - geerlingguy.certbot
-  - tiedtoastar.openldap
 ...
