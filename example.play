@@ -55,12 +55,13 @@
           description: account used to administrate the pwm web application
     - role: tiedtoastar.jellyfin
       jellyfin_FQDN: www.example.com
+      jly_ldap_domain: dc=example,dc=com
       jellyfin_plugins:
         ldap:
-          ldapbasedn: ou=people,{{ openldap_domain }}
+          ldapbasedn: ou=people,{{ jly_ldap_domain }}
           ldapsearchfilter: (accountstanding=good)
-          ldapadminfilter: (memberOf=cn=jellyfinwebadmins,ou=groups,{{ openldap_domain }})
-          ldapbinduser: cn=jellyfin-ldap-service,ou=machineaccounts,{{ openldap_domain }}
+          ldapadminfilter: (memberOf=cn=jellyfinwebadmins,ou=groups,{{ jly_ldap_domain }})
+          ldapbinduser: cn=jellyfin-ldap-service,ou=machineaccounts,{{ jly_ldap_domain }}
           ldapbindpassword: ChangeMeJly
     - role: tiedtoastar.pwm
       pwm_ldap_domain: dc=example,dc=com
