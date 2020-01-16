@@ -59,7 +59,7 @@
       jellyfin_plugins:
         ldap:
           ldapbasedn: ou=people,{{ jly_ldap_domain }}
-          ldapsearchfilter: (accountstanding=good)
+          ldapsearchfilter: (|(accountstanding=good)(!(accountstanding=*)))
           ldapadminfilter: (memberOf=cn=jellyfinwebadmins,ou=groups,{{ jly_ldap_domain }})
           ldapbinduser: cn=jellyfin-ldap-service,ou=machineaccounts,{{ jly_ldap_domain }}
           ldapbindpassword: ChangeMeJly
