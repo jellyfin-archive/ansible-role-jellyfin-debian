@@ -34,55 +34,8 @@ None.
 # Example Playbook
 
 ```yaml
-- name: Install ldap & Jellyfin
-  hosts: all
-  become: true
-  roles:
-    - role: tiedtoastar.openldap
-      openldap_is_setup: false
-      openldap_FQDN: www.example.com
-      openldap_domain: dc=example,dc=com
-      openldap_dc: example
-      openldap_o: example com
-      openldap_rootpw: ChangeMe1
-      openldap_user: ansible
-      openldap_group: ansible
-      openldap_groups:
-      - jellyfinusers:
-        attributes:
-          description: Jellyfin users
-          member: uid=jellyfinadmin,ou=people,{{ openldap_domain }}
-      - webadmins:
-        attributes:
-          description: admins that are both machines accounts and people
-          member: uid=jellyfinadmin,ou=people,{{ openldap_domain }}
-      openldap_users:
-      - dn: uid=jellyfin-ldap-service,ou=machineaccounts,{{ openldap_domain }}
-        objectClass:
-        - inetOrgPerson
-        - simpleSecurityObject
-        userPassword: ChangeMe2
-        attributes:
-          cn: jellyfin-ldap-service
-          sn: jellyfin-ldap-service
-          description: accounts used to connect jellyfin and the ldap for user authentication
-      - dn: uid=jellyfinadmin,ou=people,{{ openldap_domain }}
-        objectClass:
-        - inetOrgPerson
-        userPassword: ChangeMe3
-        attributes:
-          cn: jellyfinadmin
-          sn: jellyfinadmin
-          description: account used to administrate the jellyfin web application
-    - role: tiedtoastar.jellyfin
-      jellyfin_FQDN: "{{ openldap_FQDN }}"
-      jellyfin_plugins:
-        ldap:
-          ldapbasedn: ou=people,{{ openldap_domain }}
-          ldapsearchfilter: (memberOf=cn=jellyfinusers,ou=groups,{{ openldap_domain }})
-          ldapadminfilter: (memberOf=cn=jellyfinusers,ou=groups,{{ openldap_domain }})(memberOf=cn=webadmins,ou=groups,{{ openldap_domain }})
-          ldapbinduser: uid=jellyfin-ldap-service,ou=machineaccounts,{{ openldap_domain }}
-          ldapbindpassword: ChangeMe2
+See example
+If you only want jellyfin installed, remove two roles: tiedtoastar.pwm & tiedtoastar.openldap
 
 ```
 
